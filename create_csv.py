@@ -1,6 +1,3 @@
-# Script to create CSV data file from Pascal VOC annotation files
-# Based off code from GitHub user datitran: https://github.com/datitran/raccoon_dataset/blob/master/xml_to_csv.py
-
 import os
 import glob
 import pandas as pd
@@ -13,7 +10,7 @@ def xml_to_csv(path):
         root = tree.getroot()
         filename = root.find('filename').text
         for obj in root.findall('object'):
-            class_name = obj.find('name').text
+            class_name = obj.find('name').text.replace(" ", "_")  # Replace space with underscore
             xmin = int(obj.find('bndbox/xmin').text)
             ymin = int(obj.find('bndbox/ymin').text)
             xmax = int(obj.find('bndbox/xmax').text)
